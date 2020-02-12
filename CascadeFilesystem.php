@@ -28,7 +28,7 @@ class CascadeFilesystem
     {
         if (array_search($path, static::$_paths) === false)
         {
-            $this->_paths[] = $path;
+            static::$_paths[] = $path;
         }
     }
 
