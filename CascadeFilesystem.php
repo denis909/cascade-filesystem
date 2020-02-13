@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * @license MIT
+ * @author denis909 <dev@denis909.spb.ru>
+ * @link http://denis909.spb.ru
+ */
 namespace Denis909\CascadeFilesystem;
 
 class CascadeFilesystem

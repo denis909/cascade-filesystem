@@ -11,44 +11,50 @@ use Yii;
 class CascadeLoader
 {
 
-	protected static $_namespaces = [];
+    protected static $_namespaces = [];
 
     public static function addNamespace($namespace, $path)
     {
         static::$_namespaces[$path] = $namespace;
     }
 
-	public static function autoload($class)
-	{
-		foreach(static::$_namespaces as $path => $namespace)
-		{
-			$segments = explode("\\", $class);
+    public static function autoload($class)
+    {
+        foreach(static::$_namespaces as $path => $namespace)
+        {
+            $segments = explode("\\", $class);
 
-			$className = array_pop($segments);
+            $className = array_pop($segments);
 
-			$classNamespace = implode("\\", $segments);
+            $classNamespace = implode("\\", $segments);
 
-			$classNamespaceAlias = '@' . str_replace("\\", '/', $classNamespace);
-
-			if ($classNamespaceAlias == $namespace)
-			{
+            if ($classNamespace == $namespace)
+            {
                 $filename = $path . '/' . $className . '.php';
 
-				if (is_file($filename))
-				{
-					require_once $filename;
+                if (is_file($filename))
+                {
+                    require_once $filename;
+                
+                    if (class_exists($class, false))
+                    {
+                        return true;
+                    }
 
-					$exists = class_exists($class, false) || interface_exists($class, false) || trait_exists($class, false);	
-				
-					if ($exists)
-					{
-						return true;
-					}
-				}				
-			}
-		}
+                    if (interface_exists($class, false))
+                    {
+                        return true;
+                    }
 
-		return false;
-	}
+                    if (trait_exists($class, false))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
 
 }
