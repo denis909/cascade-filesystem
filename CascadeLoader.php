@@ -15,12 +15,12 @@ class CascadeLoader
 
     public static function addNamespace($namespace, $path)
     {
-        static::$_namespaces[$path] = $alias; 
+        static::$_namespaces[$path] = $namespace;
     }
 
 	public static function autoload($class)
 	{
-		foreach(static::$_namespaces as $path => $alias)
+		foreach(static::$_namespaces as $path => $namespace)
 		{
 			$segments = explode("\\", $class);
 
@@ -30,7 +30,7 @@ class CascadeLoader
 
 			$classNamespaceAlias = '@' . str_replace("\\", '/', $classNamespace);
 
-			if ($classNamespaceAlias == $alias)
+			if ($classNamespaceAlias == $namespace)
 			{
                 $filename = $path . '/' . $className . '.php';
 
