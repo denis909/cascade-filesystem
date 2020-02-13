@@ -4,6 +4,9 @@
     "autoload": {
         "psr-4": {
             "Denis909\\CascadeFilesystem\\": ""
-        }
+        },
+        "files": [
+            "bootstrap.php"
+        ]        
     }
 }
