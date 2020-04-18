@@ -9,6 +9,11 @@ namespace Denis909\CascadeFilesystem;
 class CascadeConfig extends CascadeFilesystem
 {
 
+    public static function findFiles(string $file, ?string $ext = 'php')
+    {
+        return parent::findFiles($file, $ext);
+    }
+
     public static function mergeConfig(string $file, array $return = [])
     {
         $files = static::findFiles($file);

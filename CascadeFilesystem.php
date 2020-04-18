@@ -11,13 +11,13 @@ class CascadeFilesystem
 
     protected static $_paths = [];
 
-    public static function findFiles(string $file)
+    public static function findFiles(string $file, ?string $ext = null)
     {
         $return = [];
     
         foreach(static::$_paths as $path)
         {
-            $filename = $path .'/' . $file;
+            $filename = $path . DIRECTORY_SEPARATOR . $file . ($ext ? ('.' . trim($ext, '.')) : '');
 
             if (is_file($filename))
             {
